@@ -8,7 +8,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show category" do
-    get category_url(@category), as: :json # Specify format as JSON if needed
+    get category_url(@category)
     assert_response :success
   end
 
@@ -17,11 +17,21 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get edit" do
+    get edit_category_url(@category)
+    assert_response :success
+  end
+
   test "should create category" do
-    assert_difference('Category.count') do
-      post categories_url, params: { category: { name: "Test Category", description: "Test Description" } }
+    assert_difference("Category.count") do
+      post categories_url, params: { category: { name: "New Category", description: "New Category Description" } }
     end
 
     assert_redirected_to category_url(Category.last)
+  end
+
+  test "should update category" do
+    patch category_url(@category), params: { category: { name: @category.name, description: @category.description } }
+    assert_redirected_to category_url(@category)
   end
 end
