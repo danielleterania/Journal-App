@@ -34,4 +34,12 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     patch category_url(@category), params: { category: { name: @category.name, description: @category.description } }
     assert_redirected_to category_url(@category)
   end
+
+  test "should destroy category" do
+    assert_difference("Category.count", -1) do
+      delete category_url(@category)
+    end
+
+    assert_redirected_to categories_url
+  end
 end
