@@ -1,0 +1,7 @@
+one:
+  name: "Work"
+  description: "Tasks related to work"
+
+two:
+  name: "Personal"
+  description: "Personal tasks"

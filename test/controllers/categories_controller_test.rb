@@ -1,20 +1,27 @@
-require "test_helper"
+require 'test_helper'
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
-  # This setup block runs before each test. It assigns a fixture category to the instance variable @category
+  fixtures :categories
+
   setup do
     @category = categories(:one)
   end
 
-  # Test to check if the show action works and responds with success for the given category
   test "should show category" do
-    get category_url(@category)
+    get category_url(@category), as: :json # Specify format as JSON if needed
     assert_response :success
   end
 
-  # Test to check if the new action works and responds with success
   test "should get new" do
     get new_category_url
     assert_response :success
+  end
+
+  test "should create category" do
+    assert_difference('Category.count') do
+      post categories_url, params: { category: { name: "Test Category", description: "Test Description" } }
+    end
+
+    assert_redirected_to category_url(Category.last)
   end
 end
