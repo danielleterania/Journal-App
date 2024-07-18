@@ -1,11 +1,14 @@
 require 'test_helper'
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   fixtures :categories, :tasks
 
   setup do
     @category = categories(:one)
     @task = tasks(:one)
+    @user = users(:one) # Assuming you have fixtures or factories set up
+    sign_in @user
   end
 
   test "should create category with task" do
@@ -18,9 +21,11 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update category and task" do
-    patch category_url(@category), params: { category: { name: @category.name, description: @category.description } }
+    patch category_url(@category), params: { category: { name: "Updated Name", description: "Updated Description" } }
     assert_redirected_to category_url(@category)
-    assert_equal @category.tasks.count, @category.tasks.count  # Ensure tasks associated with category remain unchanged
+    @category.reload
+    assert_equal "Updated Name", @category.name
+    assert_equal "Updated Description", @category.description
   end
 
   test "should destroy category and associated tasks" do

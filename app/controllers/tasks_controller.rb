@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_category
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  
 
   def index
     @tasks = @category.tasks
@@ -38,6 +40,10 @@ class TasksController < ApplicationController
     redirect_to category_tasks_path(@category), notice: 'Task was successfully deleted.'
   end
 
+  def today
+    @tasks = @category.tasks.where(due_date: Date.today)
+  end
+
   private
 
   def set_category
@@ -55,6 +61,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :category_id)
+    params.require(:task).permit(:title, :description, :due_date, :category_id)
   end
 end

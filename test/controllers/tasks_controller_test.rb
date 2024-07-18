@@ -1,11 +1,13 @@
 require 'test_helper'
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
-  fixtures :categories, :tasks
+  fixtures :categories, :tasks, :users
 
   setup do
     @category = categories(:one)
     @task = tasks(:one)
+    @user = users(:one)  # Assuming you have a fixture for users
+    sign_in @user  # Use Devise's sign_in helper to sign in the user
   end
 
   test "should create task" do

@@ -1,15 +1,28 @@
-<h1>Today's Tasks</h1>
+<h1>Tasks for Today</h1>
 
-<ul>
-  <% @tasks.each do |task| %>
-    <li>
-      <h3><%= link_to task.title, [task.category, task] %></h3>
-      <p><%= task.description %></p>
-      <p><strong>Category:</strong> <%= task.category.name %></p>
-      <%= link_to 'Edit', edit_category_task_path(task.category, task) %> |
-      <%= button_to 'Delete', [task.category, task], method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= task.due_date %></td>
+        <td>
+          <%= link_to 'Show', [task.category, task], class: 'btn btn-primary' %>
+          <%= link_to 'Edit', edit_category_task_path(task.category, task), class: 'btn btn-primary' %>
+          <%= link_to 'Delete', category_task_path(task.category, task), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to 'Back to Categories', categories_path %>
+<%= link_to 'Back to Categories', categories_path, class: 'btn btn-secondary' %>
