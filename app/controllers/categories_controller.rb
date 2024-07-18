@@ -1,30 +1,23 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
-  # GET /categories
   def index
     @categories = Category.all
   end
 
-  # GET /categories/1
   def show
-    respond_to do |format|
-      format.html # Renders show.html.erb by default
-      format.json { render json: @category } # Responds with JSON
-    end
+    @category = Category.find(params[:id])
+    @tasks = @category.tasks
   end
 
-  # GET /categories/new
   def new
     @category = Category.new
   end
 
-  # GET /categories/1/edit
   def edit
-    # Renders edit.html.erb by default
+    # Edit action logic for categories
   end
 
-  # POST /categories
   def create
     @category = Category.new(category_params)
 
@@ -35,7 +28,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /categories/1
   def update
     if @category.update(category_params)
       redirect_to @category, notice: 'Category was successfully updated.'
@@ -44,11 +36,13 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # DELETE /categories/1
   def destroy
     @category.destroy
-    redirect_to categories_url, notice: 'Category was successfully deleted.'
+   
+    @category.tasks.destroy_all
+    redirect_to categories_url, notice: 'Category and associated tasks were successfully deleted.'
   end
+  
 
   private
 

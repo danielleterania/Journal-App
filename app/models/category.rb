@@ -1,5 +1,4 @@
-# app/models/category.rb
 class Category < ApplicationRecord
-    # Your model associations and validations here
-  end
-  
+  has_many :tasks, dependent: :destroy
+  validates :name, presence: true
+end

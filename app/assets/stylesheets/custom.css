@@ -1,3 +1,4 @@
+/* Body styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
@@ -6,6 +7,7 @@ body {
   padding: 0;
 }
 
+/* Container styles */
 .container {
   max-width: 960px;
   margin: 20px auto;
@@ -15,6 +17,7 @@ body {
   border-radius: 5px;
 }
 
+/* Table styles */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -34,6 +37,7 @@ table th {
   font-weight: bold;
 }
 
+/* Button styles */
 .btn {
   display: inline-block;
   padding: 8px 16px;

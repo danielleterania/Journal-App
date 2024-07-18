@@ -1,0 +1,15 @@
+<h1>Today's Tasks</h1>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <h3><%= link_to task.title, [task.category, task] %></h3>
+      <p><%= task.description %></p>
+      <p><strong>Category:</strong> <%= task.category.name %></p>
+      <%= link_to 'Edit', edit_category_task_path(task.category, task) %> |
+      <%= button_to 'Delete', [task.category, task], method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Categories', categories_path %>
