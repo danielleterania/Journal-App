@@ -1,9 +1,9 @@
-one:
+task_one:
   title: "Task One"
   description: "Description for Task One"
-  category_id: one
+  category: work
 
-two:
+task_two:
   title: "Task Two"
   description: "Description for Task Two"
-  category_id: two
+  category: personal
